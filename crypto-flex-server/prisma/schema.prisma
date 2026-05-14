@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model User{
+  id Int @id@default(autoincrement())
+  username String? @unique
+  real_name String?
+  avatar String?
+  bio String?
+
+  nonce String?
+  nonceExpiry DateTime?
+
+  wallets Wallet[]
+
+  contacts Contact[] @relation("UserContacts")
+  contactOf Contact[] @relation("ContactOf")
+
+  transactions Transaction[] 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contact{
+  id Int @id@default(autoincrement())
+  userId Int
+  user User @relation("UserContacts", fields: [userId], references: [id])
+  contactId Int
+  contact User @relation("ContactOf", fields: [contactId], references: [id])
+  nickname String
+  description String
+  createdAt DateTime @default(now())
+
+  @@unique([userId,contactId])
+}
+
+model Transaction{
+  id              Int      @id @default(autoincrement())
+  hash            String   @unique
+  
+  fromWalletId    String?
+  fromWallet      Wallet?  @relation("SenderWallet", fields: [fromWalletId], references: [wltAdress])
+  toWalletId      String?
+  toWallet        Wallet?  @relation("IncomeWallet", fields: [toWalletId], references: [wltAdress])
+  
+  tokenId         Int?
+  token           Token?   @relation(fields: [tokenId], references: [id])
+  
+  chainId         Int  
+  chain           Chain    @relation(fields: [chainId], references: [id])
+
+  value           String
+  status          String   @default("pending")
+  blockNumber     Int?
+  
+  userId          Int?
+  user            User?    @relation(fields: [userId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  confirmedAt     DateTime?
+
+}
+model Wallet{
+  id Int @id@default(autoincrement())
+  wltAdress String @unique
+  balance BigInt
+  lastSync DateTime?
+  name String?
+
+  userId Int?
+  user User? @relation( fields: [userId], references: [id])
+
+  tracked TrackedToken[]
+
+  outgoingTransactions Transaction[] @relation("SenderWallet")
+  incomingTransactions Transaction[] @relation("IncomeWallet")
+
+
+  createdAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Token {
+  id          Int      @id @default(autoincrement())
+  address     String   
+  name        String
+  symbol      String
+  decimals    Int      @default(18)
+  logo        String?
+  price     Float?
+  chainId    Int
+  chain     Chain @relation(fields: [chainId], references: [chainId])
+  tracked TrackedToken[]
+  
+  transactions Transaction[]
+  @@unique([address, chainId])
+}
+
+model TrackedToken{
+  id        Int      @id @default(autoincrement())
+  tokenId   Int
+  walletId  Int
+  
+  token     Token    @relation(fields: [tokenId], references: [id])
+  wallet    Wallet  @relation(fields: [walletId], references: [id])
+  
+  @@unique([tokenId, walletId])
+}
+model Chain {
+  id          Int      @id @default(autoincrement())
+  chainId     Int   @unique
+  name        String
+  symbol      String?
+  testnet     Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  tokens      Token[]
+  transactions Transaction[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
