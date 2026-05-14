@@ -82,7 +82,8 @@ Swagger документация API
 Unit / e2e тесты
 
 ## 📝 Лицензия
-MIT
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 
 ## 👤 Автор
 [wnloved](https://github.com/wnloved)
