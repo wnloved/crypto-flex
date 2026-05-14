@@ -8,7 +8,10 @@
 
 ```bash
 git clone https://github.com/wnloved/crypto-flex.git
-cd crypto-flex
+cd crypto-flex-server
+```
+Создай .env файл [см. раздел .env](#переменные-окружения)
+```
 docker-compose up -d
 ```
 ### Frontend: http://localhost:5173
@@ -47,7 +50,7 @@ docker-compose up -d
 
 * Полная докеризация (одна команда для запуска)
 
-## 🔧 Переменные окружения (пример)
+## 🔧 Переменные окружения
 
 Создай файл `crypto-flex-server/.env`:
 
