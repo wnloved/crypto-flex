@@ -47,3 +47,42 @@ docker-compose up -d
 
 * Полная докеризация (одна команда для запуска)
 
+## 🔧 Переменные окружения (пример)
+
+Создай файл `crypto-flex-server/.env`:
+
+Пример .env файла (все поля обязательны)
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@postgres:5432/crypto_db"
+JWT_SECRET="8v4ghjjhkUzJVPeNVklk;klXxAU2BgHcLiYbAuaOrDqX" // SET YOUR JWT KEY
+REDIS_URL="redis://redis:6379"
+ETHERSCAN="SB2YKCZS86KYQBJFWEJ43QSYCF9DXG" //SET YOUR ETHERSCAN API KEY
+S3_REGION="ru-central-3"  //https://cloud.ru
+S3_ACCESS_KEY_ID="9be5732a7336fsdfdFe1c6b8791"
+S3_BUCKET="e4nnfsd590-c0d6-4fa6-960e-11a4bd57dbf8"
+S3_SECRET_KEY="12f4348a4gsd23j4h23l01d3e859b83a12"
+LOGOKIT="pk_frf23432432223050df7e536" //https://logokit.com/
+```
+
+## 🛠 Что можно доработать (roadmap)
+Поддержка не-EVM сетей (Bitcoin, Solana)
+
+WebSocket для обновлений в реальном времени
+
+Swagger документация API
+
+Админ-панель для управления токенами и сетями
+
+Мобильное приложение (React Native)
+
+Unit / e2e тесты
+
+## 📝 Лицензия
+MIT
+
+## 👤 Автор
+[wnloved](https://github.com/wnloved)
+
+### ⭐️ P.S.
+Это не просто пет-проект. Это рабочий продукт, который можно показать, запустить и развивать дальше.
