@@ -10,7 +10,7 @@
 git clone https://github.com/wnloved/crypto-flex.git
 cd crypto-flex-server
 ```
-Создай .env файл [см. раздел .env](#переменные-окружения)
+Создай .env файл [см. раздел .env](https://github.com/wnloved/crypto-flex/edit/master/readme.md#-переменные-окружения)
 ```
 docker-compose up -d
 ```
